@@ -190,7 +190,7 @@ function PlanCard({
           {isCurrent ? 'Current plan' : 'Free forever'}
         </button>
       ) : isCurrent ? (
-        <div className="btn-primary pointer-events-none opacity-80">You're on {name} ✓</div>
+        <div className="btn-primary pointer-events-none opacity-80">You&apos;re on {name} ✓</div>
       ) : (
         <UpgradeButton
           isLoggedIn={isLoggedIn}

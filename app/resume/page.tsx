@@ -72,7 +72,7 @@ export default function ResumePage() {
         <div>
           <h3 className="text-xl font-bold sm:text-2xl">Want early access?</h3>
           <p className="mt-1 text-sm text-white/85 sm:text-base">
-            The Resume Suite is in the works. Create a free account and we'll let you know when it's live.
+            The Resume Suite is in the works. Create a free account and we&apos;ll let you know when it&apos;s live.
           </p>
         </div>
         <Link
