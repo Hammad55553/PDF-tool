@@ -10,9 +10,25 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request: { headers: request.headers } });
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // If the Supabase env vars aren't configured (e.g. not yet added in Vercel),
+  // skip session refresh instead of throwing. Throwing here would make EVERY
+  // request fail with MIDDLEWARE_INVOCATION_FAILED (500) and take the whole
+  // site down. Without a session refresh the site still works fully; users
+  // just won't have their auth cookie silently refreshed on that request.
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error(
+      '[middleware] Supabase env vars missing — skipping session refresh. ' +
+        'Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in Vercel → Settings → Environment Variables.',
+    );
+    return response;
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         get(name: string) {
@@ -32,7 +48,13 @@ export async function middleware(request: NextRequest) {
     },
   );
 
-  await supabase.auth.getUser();
+  try {
+    await supabase.auth.getUser();
+  } catch (err) {
+    // Never let a transient auth/network error crash the edge middleware and
+    // 500 the whole request — session refresh is best-effort.
+    console.error('[middleware] session refresh failed (non-fatal):', err);
+  }
 
   return response;
 }
