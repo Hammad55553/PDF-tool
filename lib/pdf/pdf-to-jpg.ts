@@ -80,6 +80,7 @@ export async function pdfToJpg(input: Buffer, quality = 85, scale = 2): Promise<
   // Dynamic imports: pdfjs-dist's legacy Node build and canvas are both
   // Node-only and shouldn't be pulled into any client bundle.
   const pdfjsLib: any = await import('pdfjs-dist/legacy/build/pdf.js');
+  // @ts-ignore
   const { createCanvas } = await import('canvas');
 
   const canvasFactory = new NodeCanvasFactory(createCanvas as any);
