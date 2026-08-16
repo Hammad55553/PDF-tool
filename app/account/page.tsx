@@ -11,6 +11,12 @@ export const metadata = {
   robots: { index: false, follow: false }, // private page — don't index
 };
 
+// This page reads the logged-in user via Supabase (per-request cookies), so it
+// must never be statically prerendered at build time. Forcing dynamic also
+// prevents the build from crashing when Supabase env vars aren't present during
+// the build step.
+export const dynamic = 'force-dynamic';
+
 export default async function AccountPage() {
   const supabase = createSupabaseServerClient();
   const {

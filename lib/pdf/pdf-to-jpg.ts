@@ -77,5 +77,63 @@ class NodeCanvasFactory {
 }
 
 export async function pdfToJpg(input: Buffer, quality = 85, scale = 2): Promise<PdfToJpgResult> {
-  throw new ToolError('PDF to JPG is temporarily disabled due to Vercel deployment issues.');
+  // Dynamic imports: pdfjs-dist's legacy Node build and canvas are both
+  // Node-only and shouldn't be pulled into any client bundle.
+  const pdfjsLib: any = await import('pdfjs-dist/legacy/build/pdf.js');
+  // @ts-ignore
+  const { createCanvas } = await import('canvas');
+
+  const canvasFactory = new NodeCanvasFactory(createCanvas as any);
+
+  let pdfDocument;
+  try {
+    const loadingTask = pdfjsLib.getDocument({
+      data: new Uint8Array(input),
+      useSystemFonts: true,
+      isEvalSupported: false,
+      canvasFactory,
+      // Point pdf.js at its bundled cmaps/standard fonts so PDFs with
+      // embedded CJK fonts or non-standard encodings render correctly
+      // instead of just falling back silently on missing glyphs.
+      cMapUrl: path.join(process.cwd(), 'node_modules/pdfjs-dist/cmaps/') + path.sep,
+      cMapPacked: true,
+      standardFontDataUrl:
+        path.join(process.cwd(), 'node_modules/pdfjs-dist/standard_fonts/') + path.sep,
+    });
+    pdfDocument = await loadingTask.promise;
+  } catch {
+    throw new ToolError('This file is not a valid or is a password-protected PDF.');
+  }
+
+  const pageCount = pdfDocument.numPages;
+  if (pageCount === 0) {
+    throw new ToolError('This PDF has no pages.');
+  }
+
+  const zip = new JSZip();
+
+  for (let pageNum = 1; pageNum <= pageCount; pageNum++) {
+    const page = await pdfDocument.getPage(pageNum);
+    const viewport = page.getViewport({ scale });
+
+    const canvasAndContext = canvasFactory.create(viewport.width, viewport.height);
+
+    await page.render({
+      canvasContext: canvasAndContext.context,
+      viewport,
+    }).promise;
+
+    const jpgBuffer: Buffer = canvasAndContext.canvas.toBuffer('image/jpeg', {
+      quality: quality / 100,
+    });
+
+    canvasFactory.destroy(canvasAndContext);
+    page.cleanup();
+
+    const num = String(pageNum).padStart(3, '0');
+    zip.file(`page-${num}.jpg`, jpgBuffer);
+  }
+
+  const zipBuffer = await zip.generateAsync({ type: 'nodebuffer' });
+  return { zip: zipBuffer, pageCount };
 }
