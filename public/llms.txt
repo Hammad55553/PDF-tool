@@ -1,0 +1,38 @@
+# PDForo
+
+> PDForo is a free, fast, privacy-friendly online PDF toolkit. Every tool runs
+> on our own servers — files are processed and returned in seconds, then
+> deleted. No signup required to use the free tier.
+
+PDForo lets anyone merge, split, compress, convert, edit, and secure PDF and
+image files directly in the browser. It is a modern alternative to iLovePDF and
+Smallpdf, priced below both, with a generous free tier.
+
+## Tools
+
+- [Merge PDF](/tools/merge-pdf): Combine multiple PDFs into one file, in any order.
+- [Split PDF](/tools/split-pdf): Extract a page range or split a PDF every N pages.
+- [Compress PDF](/tools/compress-pdf): Reduce PDF file size while keeping quality.
+- [JPG to PDF](/tools/jpg-to-pdf): Turn one or more images into a single PDF.
+- [PDF to JPG](/tools/pdf-to-jpg): Convert each PDF page into a high-quality JPG.
+- [PDF to Word](/tools/pdf-to-word): Convert a PDF into an editable Word (DOCX) document.
+- [Word to PDF](/tools/word-to-pdf): Convert a Word document to PDF.
+- [PDF to Excel](/tools/pdf-to-excel): Extract tables from a PDF into an Excel spreadsheet.
+- [Excel to PDF](/tools/excel-to-pdf): Convert a spreadsheet to PDF.
+- [PowerPoint to PDF](/tools/ppt-to-pdf): Convert a slide deck to PDF.
+- [Watermark PDF](/tools/watermark-pdf): Add a text watermark to every page.
+- [Protect PDF](/tools/protect-pdf): Password-protect (encrypt) a PDF.
+- [Unlock PDF](/tools/unlock-pdf): Remove a known password from a PDF.
+- [Background Remover](/tools/remove-background): Remove the background from any photo using AI.
+
+## Pricing
+
+- Free: $0 — core tools, up to 10 MB per file, 2 files per batch (ad-supported).
+- Pro: $8.49/mo or $71/yr — 200 MB files, 50 per batch, ad-free, no watermark, priority.
+- Ultra Pro: $14.99/mo or $125/yr — 1 GB files, 200 per batch, highest limits, top priority.
+
+## Notes
+
+- Files are processed server-side and not stored longer than needed.
+- The free tier requires no account. Sign in (Google or email) to upgrade.
+- Learn more: [Pricing](/pricing)

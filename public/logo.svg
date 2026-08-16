@@ -1,0 +1,45 @@
+<svg width="800" height="200" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Brand Color Gradient for the 'gold' parts in the original -->
+    <linearGradient id="brand-grad" x1="-40" y1="-40" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3A42EA" />
+      <stop offset="100%" stop-color="#7379FF" />
+    </linearGradient>
+    
+    <!-- Dark Gradient for the 'black' parts in the original -->
+    <linearGradient id="dark-grad" x1="-80" y1="-80" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#1F2937" />
+    </linearGradient>
+
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Abstract Intertwined Ribbon Icon (Horizontal Layout) -->
+  <g transform="translate(150, 100) scale(1.1)" filter="url(#shadow)">
+    
+    <!-- Left 'P' Loop -->
+    <path d="M-80,40 V-40 C-80,-65 -60,-80 -35,-80 C-10,-80 5,-65 5,-40 L-30,-5 L-55,-30 L-55,20 C-55,30 -45,40 -35,40 L-10,40 C-30,55 -55,60 -80,40 Z" fill="url(#dark-grad)" />
+    
+    <!-- Middle Intertwined Diamond / Ribbon -->
+    <path d="M-40,0 L0,40 L40,0 L0,-40 Z" fill="none" stroke="url(#brand-grad)" stroke-width="20" stroke-linejoin="round" />
+    
+    <!-- Right 'f' Loop -->
+    <path d="M80,-40 V40 C80,65 60,80 35,80 C10,80 -5,65 -5,40 L30,5 L55,30 L55,-20 C55,-30 45,-40 35,-40 L10,-40 C30,-55 55,-60 80,-40 Z" fill="url(#dark-grad)" />
+    
+    <!-- Crossbar for 'f' -->
+    <rect x="40" y="-10" width="60" height="20" fill="url(#dark-grad)" />
+  </g>
+
+  <!-- Text Section -->
+  <text x="470" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="100" text-anchor="middle" letter-spacing="-3">
+    <!-- P is capital and dark -->
+    <tspan fill="#111827">P</tspan>
+    <!-- dfor is small and in brand color -->
+    <tspan fill="#3A42EA">dfor</tspan>
+    <!-- O is capital and dark -->
+    <tspan fill="#111827">O</tspan>
+  </text>
+</svg>

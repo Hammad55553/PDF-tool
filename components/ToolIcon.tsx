@@ -1,0 +1,81 @@
+import {
+  CopyPlus,
+  ScissorsLineDashed,
+  Minimize2,
+  Image as ImageIcon,
+  FileImage,
+  FileType,
+  FileSpreadsheet,
+  Presentation,
+  Stamp,
+  Eraser,
+  Lock,
+  LockOpen,
+  LayoutGrid,
+  RotateCw,
+  Wrench,
+  ScanText,
+  Globe,
+  Archive,
+  FileCode,
+  Pencil,
+  Hash,
+  Crop,
+  Sparkles,
+  Languages,
+  GitCompare,
+  PenTool,
+  SquareSlash,
+  Scaling,
+  ImageMinus,
+  Wand,
+  Film,
+  Palette,
+  FileText,
+  type LucideIcon,
+} from 'lucide-react';
+
+/**
+ * Maps our tool `icon` keys (see lib/tools.ts) to real Lucide icons — the
+ * same professionally-designed open-source icon set used across modern SaaS
+ * dashboards.
+ */
+const ICONS: Record<string, LucideIcon> = {
+  'copy-plus': CopyPlus,
+  'scissors-line-dashed': ScissorsLineDashed,
+  'minimize-2': Minimize2,
+  image: ImageIcon,
+  'file-image': FileImage,
+  'file-type': FileType,
+  'file-spreadsheet': FileSpreadsheet,
+  presentation: Presentation,
+  stamp: Stamp,
+  eraser: Eraser,
+  lock: Lock,
+  'lock-open': LockOpen,
+  'layout-grid': LayoutGrid,
+  'rotate-cw': RotateCw,
+  wrench: Wrench,
+  'scan-text': ScanText,
+  globe: Globe,
+  archive: Archive,
+  'file-code': FileCode,
+  pencil: Pencil,
+  hash: Hash,
+  crop: Crop,
+  sparkles: Sparkles,
+  languages: Languages,
+  'git-compare': GitCompare,
+  'pen-tool': PenTool,
+  'square-slash': SquareSlash,
+  scaling: Scaling,
+  'image-minus': ImageMinus,
+  wand: Wand,
+  film: Film,
+  palette: Palette,
+};
+
+export default function ToolIcon({ name, className = 'h-6 w-6' }: { name: string; className?: string }) {
+  const Icon = ICONS[name] ?? FileText;
+  return <Icon className={className} strokeWidth={1.8} />;
+}

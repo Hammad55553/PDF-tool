@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f8fafc;
+  background-image: radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 0.03) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 0.03) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 0.03) 0, transparent 50%);
+  background-attachment: fixed;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition-all hover:scale-[1.02] hover:shadow-brand-500/40 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/60 bg-white/50 backdrop-blur-sm px-6 py-3.5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:border-brand-300 hover:bg-brand-50/50 hover:text-brand-700 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .card {
+    @apply rounded-3xl border border-white/40 bg-white/60 backdrop-blur-xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] sm:p-8;
+  }
+
+  .glass-panel {
+    @apply rounded-2xl border border-white/50 bg-white/40 backdrop-blur-md shadow-sm;
+  }
+
+  .dropzone {
+    @apply relative flex flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-slate-300/70 bg-white/40 backdrop-blur-md px-4 py-10 text-center transition-all duration-300 ease-out hover:border-brand-400 hover:bg-white/60 sm:gap-4 sm:rounded-3xl sm:px-8 sm:py-20;
+  }
+
+  .dropzone-active {
+    @apply border-brand-500 bg-brand-50/80 scale-[1.02] shadow-[0_0_40px_rgba(59,130,246,0.15)];
+  }
+}
+
+/* ===== Pro avatar: rotating conic-gradient ring + soft glow ===== */
+@keyframes pro-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pro-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.pro-avatar {
+  position: relative;
+  border-radius: 9999px;
+}
+
+/* The moving ring: a conic gradient rotated forever behind the avatar. */
+.pro-avatar::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    #f59e0b,
+    #f43f5e,
+    #8b5cf6,
+    #3b82f6,
+    #10b981,
+    #f59e0b
+  );
+  animation: pro-ring-spin 3.5s linear infinite;
+  z-index: 0;
+}
+
+/* Soft outer glow that gently pulses. */
+.pro-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, #f59e0b, #f43f5e, #8b5cf6, #3b82f6, #10b981, #f59e0b);
+  filter: blur(9px);
+  opacity: 0.6;
+  animation: pro-ring-spin 3.5s linear infinite, pro-glow-pulse 2.5s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* White separator + the actual image sit above the spinning ring. */
+.pro-avatar > .pro-avatar-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 9999px;
+  background: #fff;
+  padding: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pro-avatar::before,
+  .pro-avatar::after {
+    animation: none;
+  }
+}
